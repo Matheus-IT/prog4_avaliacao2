@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../consts/colors.dart';
+import '../pages/game_page/game_page.dart';
 import '../pages/home_page/home_page.dart';
+import 'app_routes.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -8,11 +11,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Jogo da forca',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
+      theme: ThemeData(scaffoldBackgroundColor: kBackgroundColor),
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.homePage,
+      routes: {
+        AppRoutes.homePage: (_) => const HomePage(),
+        AppRoutes.gamePage: (_) => const GamePage(),
+      },
     );
   }
 }
