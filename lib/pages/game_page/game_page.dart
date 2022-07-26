@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../consts/colors.dart';
+import 'components/game_keyboard.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   int lives = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +33,17 @@ class _GamePageState extends State<GamePage> {
         ],
       ),
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Voltar'))
-        ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Voltar'),
+            ),
+            const Spacer(),
+            const GameKeyboard(),
+          ],
+        ),
       ),
     );
   }
