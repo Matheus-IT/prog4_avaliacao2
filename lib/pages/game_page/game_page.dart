@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog4_avaliacao2/pages/game_page/components/gallow.dart';
 import '../../consts/colors.dart';
 import 'components/game_keyboard.dart';
 import 'components/hint_bar.dart';
@@ -38,13 +39,14 @@ class _GamePageState extends State<GamePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             HintBar(hintBar: hintBar),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Voltar'),
             ),
+            const Gallow(imageSource: 'assets/image/player_stages/0.png'),
             const Spacer(),
             const GameKeyboard(),
           ],
