@@ -14,6 +14,7 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   int lives = 3;
   double hintBar = 0.0;
+  final word = 'FLUTTER';
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,31 @@ class _GamePageState extends State<GamePage> {
               child: const Text('Voltar'),
             ),
             const Gallow(imageSource: 'assets/image/player_stages/0.png'),
+            Container(
+              margin: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: word
+                    .split('')
+                    .map(
+                      (letter) => Container(
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Text(
+                          letter,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
             const Spacer(),
             const GameKeyboard(),
           ],
