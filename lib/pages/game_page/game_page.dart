@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../consts/colors.dart';
 import 'components/game_keyboard.dart';
+import 'components/hint_bar.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   int lives = 3;
+  double hintBar = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,10 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 15,
+            ),
+            HintBar(hintBar: hintBar),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Voltar'),
