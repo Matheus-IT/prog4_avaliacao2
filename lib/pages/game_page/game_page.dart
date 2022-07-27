@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:prog4_avaliacao2/pages/game_page/components/gallow.dart';
+import '../../models/word_model.dart';
+import '../../pages/game_page/components/gallow.dart';
 import '../../consts/colors.dart';
 import 'components/game_keyboard.dart';
+import 'components/hidden_letter.dart';
 import 'components/hint_bar.dart';
+import 'components/letter.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -14,15 +17,25 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   int lives = 3;
   double hintBar = 0.0;
-  final word = 'FLUTTER';
+  final word = WordModel('flutter');
 
-  void handleLetterPressed(String letter) {
-    print(letter);
-    if (word.contains(letter)) {
+  void handleLetterPressed(String letterChar) {
+    if (word.contains(letterChar)) {
+      revealAllOccurrencesOf(letterChar);
       increaseHintBar();
     } else {
       decreaseLives();
     }
+  }
+
+  void revealAllOccurrencesOf(String letterChar) {
+    setState(() {
+      for (final letterModel in word.letters) {
+        if (letterModel.value == letterChar) {
+          letterModel.revealLetter();
+        }
+      }
+    });
   }
 
   void increaseHintBar() {
@@ -74,35 +87,11 @@ class _GamePageState extends State<GamePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ...word
-                      .split('')
-                      .map(
-                        (letter) => Container(
-                          padding: const EdgeInsets.all(5),
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Text(
-                            letter,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  Container(
-                    width: 22,
-                    height: 4,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+                children: word.letters.map((letter) {
+                  return letter.isHidden
+                      ? const HiddenLetter()
+                      : Letter(textValue: letter.value);
+                }).toList(),
               ),
             ),
             const Spacer(),
