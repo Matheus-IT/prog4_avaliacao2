@@ -9,7 +9,9 @@ class GameKeyboard extends StatelessWidget {
     ['V', 'W', 'X', 'Y', 'Z'],
   ];
 
-  const GameKeyboard({Key? key}) : super(key: key);
+  final void Function(String) handleLetterPressed;
+
+  const GameKeyboard(this.handleLetterPressed, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class GameKeyboard extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       primary: kWordsColor,
                     ),
-                    onPressed: () {},
+                    onPressed: () => handleLetterPressed(letter),
                     child: Text(
                       '$letter',
                       style: const TextStyle(

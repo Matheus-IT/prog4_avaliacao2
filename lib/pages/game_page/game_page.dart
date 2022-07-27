@@ -16,6 +16,27 @@ class _GamePageState extends State<GamePage> {
   double hintBar = 0.0;
   final word = 'FLUTTER';
 
+  void handleLetterPressed(String letter) {
+    print(letter);
+    if (word.contains(letter)) {
+      increaseHintBar();
+    } else {
+      decreaseLives();
+    }
+  }
+
+  void increaseHintBar() {
+    setState(() {
+      hintBar += 1 / word.length;
+    });
+  }
+
+  void decreaseLives() {
+    setState(() {
+      lives -= 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,29 +73,40 @@ class _GamePageState extends State<GamePage> {
               margin: const EdgeInsets.only(top: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: word
-                    .split('')
-                    .map(
-                      (letter) => Container(
-                        padding: const EdgeInsets.all(5),
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Text(
-                          letter,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ...word
+                      .split('')
+                      .map(
+                        (letter) => Container(
+                          padding: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Text(
+                            letter,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                  Container(
+                    width: 22,
+                    height: 4,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
             const Spacer(),
-            const GameKeyboard(),
+            GameKeyboard(handleLetterPressed),
           ],
         ),
       ),
