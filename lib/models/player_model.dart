@@ -14,7 +14,7 @@ class PlayerModel {
 
   PlayerModel(
       [this.currentHangingStage = PlayerHangingStage.notHanging,
-      this.lives = 3]);
+      this.lives = 6]);
 
   void decreaseLives() {
     lives -= 1;

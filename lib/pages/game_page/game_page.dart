@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:prog4_avaliacao2/models/player_model.dart';
+
+import '../../models/player_model.dart';
 import '../../models/word_model.dart';
 import '../../pages/game_page/components/gallow.dart';
 import '../../consts/colors.dart';
+
 import 'components/game_keyboard.dart';
 import 'components/hidden_letter.dart';
+import 'components/hint.dart';
 import 'components/hint_bar.dart';
 import 'components/letter.dart';
 
@@ -17,6 +20,8 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   double hintBar = 0.0;
+  String hint = 'framework mobile';
+  bool hintVisible = false;
   final word = WordModel('flutter');
   final player = PlayerModel();
 
@@ -34,10 +39,13 @@ class _GamePageState extends State<GamePage> {
     setState(() {
       if (word.contains(letterChar)) {
         revealAllOccurrencesOf(letterChar);
-        increaseHintBar();
       } else {
         player.decreaseLives();
         player.updateHangingStage();
+        increaseHintBar();
+        if (shouldShowHint()) {
+          showHint();
+        }
       }
     });
   }
@@ -51,7 +59,19 @@ class _GamePageState extends State<GamePage> {
   }
 
   void increaseHintBar() {
-    hintBar += 1 / word.length;
+    print('hintBar antes: $hintBar');
+    hintBar += 1 / player.lives;
+    print('hintBar depois: $hintBar');
+  }
+
+  bool shouldShowHint() {
+    return hintBar >= 1;
+  }
+
+  void showHint() {
+    setState(() {
+      hintVisible = true;
+    });
   }
 
   @override
@@ -80,13 +100,14 @@ class _GamePageState extends State<GamePage> {
             const SizedBox(
               height: 10,
             ),
-            HintBar(hintBar: hintBar),
+            hintVisible ? Hint(hint: hint) : HintBar(hintBar: hintBar),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Voltar'),
             ),
             Gallow(
-                imageSource: playerHangingAssets[player.currentHangingStage]!),
+              imageSource: playerHangingAssets[player.currentHangingStage]!,
+            ),
             Container(
               margin: const EdgeInsets.only(top: 30),
               child: Row(
