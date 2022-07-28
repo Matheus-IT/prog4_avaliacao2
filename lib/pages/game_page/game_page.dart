@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/letter_model.dart';
 import '../../models/hint_model.dart';
 import '../../models/player_model.dart';
 import '../../models/word_model.dart';
@@ -34,11 +35,11 @@ class _GamePageState extends State<GamePage> {
     PlayerHangingStage.rightArm: 'assets/image/player_stages/6.png',
   };
 
-  void handleLetterPressed(String letterChar) {
+  void handleLetterPressed(LetterModel letter) {
     /// This is the controller to handle when a letter is pressed
     setState(() {
-      if (word.contains(letterChar)) {
-        revealAllOccurrencesOf(letterChar);
+      if (word.contains(letter.value)) {
+        revealAllOccurrencesOf(letter.value);
       } else {
         player.decreaseLives();
         player.updateHangingStage();

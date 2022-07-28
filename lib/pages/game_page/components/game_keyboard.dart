@@ -1,17 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:prog4_avaliacao2/consts/colors.dart';
+import 'package:prog4_avaliacao2/models/letter_model.dart';
 
 class GameKeyboard extends StatelessWidget {
-  final List _gameKeyboard = const [
-    ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-    ['H', 'I', 'J', 'K', 'L', 'M', 'N'],
-    ['O', 'P', 'Q', 'R', 'S', 'T', 'U'],
-    ['V', 'W', 'X', 'Y', 'Z'],
+  final List _gameKeyboard = [
+    [
+      LetterModel('A'),
+      LetterModel('B'),
+      LetterModel('C'),
+      LetterModel('D'),
+      LetterModel('E'),
+      LetterModel('F'),
+      LetterModel('G')
+    ],
+    [
+      LetterModel('H'),
+      LetterModel('I'),
+      LetterModel('J'),
+      LetterModel('K'),
+      LetterModel('L'),
+      LetterModel('M'),
+      LetterModel('N')
+    ],
+    [
+      LetterModel('O'),
+      LetterModel('P'),
+      LetterModel('Q'),
+      LetterModel('R'),
+      LetterModel('S'),
+      LetterModel('T'),
+      LetterModel('U')
+    ],
+    [
+      LetterModel('V'),
+      LetterModel('W'),
+      LetterModel('X'),
+      LetterModel('Y'),
+      LetterModel('Z')
+    ],
   ];
+  final void Function(LetterModel) handleLetterPressed;
 
-  final void Function(String) handleLetterPressed;
-
-  const GameKeyboard(this.handleLetterPressed, {Key? key}) : super(key: key);
+  GameKeyboard(this.handleLetterPressed, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +54,11 @@ class GameKeyboard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          for (final row in _gameKeyboard)
+          for (final List row in _gameKeyboard)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (final letter in row)
+                for (final LetterModel letter in row)
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromRadius(16),
@@ -37,7 +67,7 @@ class GameKeyboard extends StatelessWidget {
                     ),
                     onPressed: () => handleLetterPressed(letter),
                     child: Text(
-                      '$letter',
+                      letter.value,
                       style: const TextStyle(
                         fontSize: 18,
                         color: kWhite,
