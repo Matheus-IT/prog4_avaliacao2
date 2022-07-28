@@ -7,10 +7,9 @@ import '../../pages/game_page/components/gallow.dart';
 import '../../consts/colors.dart';
 
 import 'components/game_keyboard.dart';
-import 'components/hidden_letter.dart';
 import 'components/hint.dart';
 import 'components/hint_bar.dart';
-import 'components/letter.dart';
+import 'components/word_to_guess.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -95,18 +94,7 @@ class _GamePageState extends State<GamePage> {
             Gallow(
               imageSource: playerHangingAssets[player.currentHangingStage]!,
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: word.letters.map((letter) {
-                  return letter.isHidden
-                      ? const HiddenLetter()
-                      : Letter(textValue: letter.value);
-                }).toList(),
-              ),
-            ),
+            WordToGuess(word: word),
             const Spacer(),
             GameKeyboard(handleLetterPressed),
           ],
