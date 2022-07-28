@@ -42,7 +42,7 @@ class _GamePageState extends State<GamePage> {
       if (word.contains(letter.value)) {
         revealAllOccurrencesOf(letter.value);
       } else {
-        player.decreaseLives();
+        player.decreaseLivesIfCan();
         player.updateHangingStage();
         increaseHintBar();
         if (hint.shouldRevealHint(hintBarSize)) {
