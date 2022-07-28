@@ -18,6 +18,16 @@ class _GamePageState extends State<GamePage> {
   int lives = 3;
   double hintBar = 0.0;
   final word = WordModel('flutter');
+  final playerStages = <int, String>{
+    0: 'assets/image/player_stages/0.png',
+    1: 'assets/image/player_stages/1.png',
+    2: 'assets/image/player_stages/2.png',
+    3: 'assets/image/player_stages/3.png',
+    4: 'assets/image/player_stages/4.png',
+    5: 'assets/image/player_stages/5.png',
+    6: 'assets/image/player_stages/6.png',
+  };
+  int playerCurrentStage = 0;
 
   void handleLetterPressed(String letterChar) {
     if (word.contains(letterChar)) {
@@ -25,6 +35,7 @@ class _GamePageState extends State<GamePage> {
       increaseHintBar();
     } else {
       decreaseLives();
+      updatePlayerHangingStage();
     }
   }
 
@@ -42,6 +53,14 @@ class _GamePageState extends State<GamePage> {
     setState(() {
       hintBar += 1 / word.length;
     });
+  }
+
+  void updatePlayerHangingStage() {
+    if (playerCurrentStage < playerStages.length - 1) {
+      setState(() {
+        playerCurrentStage += 1;
+      });
+    }
   }
 
   void decreaseLives() {
@@ -81,7 +100,7 @@ class _GamePageState extends State<GamePage> {
               onPressed: () => Navigator.pop(context),
               child: const Text('Voltar'),
             ),
-            const Gallow(imageSource: 'assets/image/player_stages/0.png'),
+            Gallow(imageSource: playerStages[playerCurrentStage]!),
             Container(
               margin: const EdgeInsets.only(top: 30),
               child: Row(
