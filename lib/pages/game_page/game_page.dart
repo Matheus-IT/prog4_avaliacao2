@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/hint_model.dart';
 import '../../models/player_model.dart';
 import '../../models/word_model.dart';
 import '../../pages/game_page/components/gallow.dart';
@@ -19,10 +20,9 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  double hintBar = 0.0;
-  String hint = 'framework mobile';
-  bool hintVisible = false;
+  double hintBarSize = 0.0;
   final word = WordModel('flutter');
+  final hint = HintModel('framework mobile');
   final player = PlayerModel();
 
   final playerHangingAssets = {
@@ -36,6 +36,7 @@ class _GamePageState extends State<GamePage> {
   };
 
   void handleLetterPressed(String letterChar) {
+    /// This is the controller to handle when a letter is pressed
     setState(() {
       if (word.contains(letterChar)) {
         revealAllOccurrencesOf(letterChar);
@@ -43,8 +44,8 @@ class _GamePageState extends State<GamePage> {
         player.decreaseLives();
         player.updateHangingStage();
         increaseHintBar();
-        if (shouldShowHint()) {
-          showHint();
+        if (hint.shouldRevealHint(hintBarSize)) {
+          hint.revealHint();
         }
       }
     });
@@ -59,19 +60,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void increaseHintBar() {
-    print('hintBar antes: $hintBar');
-    hintBar += 1 / player.lives;
-    print('hintBar depois: $hintBar');
-  }
-
-  bool shouldShowHint() {
-    return hintBar >= 1;
-  }
-
-  void showHint() {
-    setState(() {
-      hintVisible = true;
-    });
+    hintBarSize += 1 / player.lives;
   }
 
   @override
@@ -99,7 +88,9 @@ class _GamePageState extends State<GamePage> {
           children: [
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
-              child: hintVisible ? Hint(hint: hint) : HintBar(hintBar: hintBar),
+              child: hint.isHintVisible
+                  ? Hint(hintValue: hint.value)
+                  : HintBar(hintBar: hintBarSize),
             ),
             Gallow(
               imageSource: playerHangingAssets[player.currentHangingStage]!,
