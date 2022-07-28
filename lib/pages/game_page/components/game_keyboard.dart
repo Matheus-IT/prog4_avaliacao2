@@ -2,43 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:prog4_avaliacao2/consts/colors.dart';
 import 'package:prog4_avaliacao2/models/letter_model.dart';
 
+import 'game_keyboard_data.dart';
+
 class GameKeyboard extends StatelessWidget {
-  final List _gameKeyboard = [
-    [
-      LetterModel('A'),
-      LetterModel('B'),
-      LetterModel('C'),
-      LetterModel('D'),
-      LetterModel('E'),
-      LetterModel('F'),
-      LetterModel('G')
-    ],
-    [
-      LetterModel('H'),
-      LetterModel('I'),
-      LetterModel('J'),
-      LetterModel('K'),
-      LetterModel('L'),
-      LetterModel('M'),
-      LetterModel('N')
-    ],
-    [
-      LetterModel('O'),
-      LetterModel('P'),
-      LetterModel('Q'),
-      LetterModel('R'),
-      LetterModel('S'),
-      LetterModel('T'),
-      LetterModel('U')
-    ],
-    [
-      LetterModel('V'),
-      LetterModel('W'),
-      LetterModel('X'),
-      LetterModel('Y'),
-      LetterModel('Z')
-    ],
-  ];
+  final List _gameKeyboard = gameKeyboardData;
   final void Function(LetterModel) handleLetterPressed;
 
   GameKeyboard(this.handleLetterPressed, {Key? key}) : super(key: key);
@@ -65,7 +32,9 @@ class GameKeyboard extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       primary: kWordsColor,
                     ),
-                    onPressed: () => handleLetterPressed(letter),
+                    onPressed: !letter.wasChosen
+                        ? () => handleLetterPressed(letter)
+                        : null,
                     child: Text(
                       letter.value,
                       style: const TextStyle(

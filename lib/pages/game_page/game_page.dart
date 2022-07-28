@@ -37,6 +37,8 @@ class _GamePageState extends State<GamePage> {
 
   void handleLetterPressed(LetterModel letter) {
     /// This is the controller to handle when a letter is pressed
+    print(letter.hashCode);
+    letter.chooseThisLetter();
     setState(() {
       if (word.contains(letter.value)) {
         revealAllOccurrencesOf(letter.value);
