@@ -101,10 +101,6 @@ class _GamePageState extends State<GamePage> {
               height: 10,
             ),
             hintVisible ? Hint(hint: hint) : HintBar(hintBar: hintBar),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Voltar'),
-            ),
             Gallow(
               imageSource: playerHangingAssets[player.currentHangingStage]!,
             ),
