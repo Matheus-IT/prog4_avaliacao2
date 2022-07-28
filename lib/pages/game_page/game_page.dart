@@ -97,10 +97,10 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 10,
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              child: hintVisible ? Hint(hint: hint) : HintBar(hintBar: hintBar),
             ),
-            hintVisible ? Hint(hint: hint) : HintBar(hintBar: hintBar),
             Gallow(
               imageSource: playerHangingAssets[player.currentHangingStage]!,
             ),
