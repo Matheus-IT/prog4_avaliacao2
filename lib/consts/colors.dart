@@ -8,3 +8,5 @@ const kKeyboardFrameColor = Color(0xFFCA0F54);
 const kActionAreaColor = Color(0xFF93342F);
 const kForegroundColor = Color(0xFFCD3D35);
 const kBackgroundColor = Color(0xFF812730);
+const kDarkText = Color(0xFF565656);
+const kResultButton = Color(0xFFCA0F54);
