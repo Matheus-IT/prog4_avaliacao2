@@ -25,7 +25,7 @@ class Gallow extends StatelessWidget {
               color: Colors.black54),
         ],
       ),
-      child: Image.asset(imageSource, width: 300, height: 250),
+      child: Image.asset(imageSource, width: 300, height: 205),
     );
   }
 }
