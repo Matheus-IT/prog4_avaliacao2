@@ -14,9 +14,15 @@ class ResultBox extends StatelessWidget {
     return Material(
         type: MaterialType.transparency,
         textStyle: const TextStyle(
-            fontSize: 16, color: kDarkText, fontWeight: FontWeight.w500),
+          fontSize: 16,
+          color: kDarkText,
+          fontWeight: FontWeight.w500,
+        ),
         child: Column(
-          children: [Text(values), Text(title)],
+          children: [
+            Text(title),
+            Text(values),
+          ],
         ));
   }
 }
