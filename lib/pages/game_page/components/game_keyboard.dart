@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../consts/colors.dart';
 import '../../../models/letter_model.dart';
 
-import 'game_keyboard_data.dart';
-
 class GameKeyboard extends StatelessWidget {
-  final List _gameKeyboard = gameKeyboardData;
+  final List<List<LetterModel>> gameKeyboardData;
   final void Function(LetterModel) handleLetterPressed;
 
-  GameKeyboard(this.handleLetterPressed, {Key? key}) : super(key: key);
+  const GameKeyboard(
+    this.handleLetterPressed, {
+    required this.gameKeyboardData,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class GameKeyboard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          for (final List row in _gameKeyboard)
+          for (final List row in gameKeyboardData)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

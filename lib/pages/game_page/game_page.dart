@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prog4_avaliacao2/core/app_routes.dart';
 
+import './components/game_keyboard_data.dart';
+import '../../core/app_routes.dart';
 import '../../models/letter_model.dart';
 import '../../models/hint_model.dart';
 import '../../models/player_model.dart';
@@ -25,6 +26,7 @@ class _GamePageState extends State<GamePage> {
   final word = WordModel('flutter');
   final hint = HintModel('framework mobile');
   final player = PlayerModel();
+  final gameKeyboardData = GameKeyboardData();
 
   final playerHangingAssets = {
     PlayerHangingStage.notHanging: 'assets/image/player_stages/0.png',
@@ -118,7 +120,10 @@ class _GamePageState extends State<GamePage> {
             ),
             WordToGuess(word: word),
             const Spacer(),
-            GameKeyboard(handleLetterPressed),
+            GameKeyboard(
+              handleLetterPressed,
+              gameKeyboardData: gameKeyboardData.keyboardData,
+            ),
           ],
         ),
       ),
