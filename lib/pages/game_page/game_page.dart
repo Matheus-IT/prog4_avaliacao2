@@ -41,6 +41,7 @@ class _GamePageState extends State<GamePage> {
     setState(() {
       if (word.contains(letter.value)) {
         revealAllOccurrencesOf(letter.value);
+        letter.markAsHit();
       } else {
         player.decreaseLivesIfCan();
         player.updateHangingStage();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prog4_avaliacao2/consts/colors.dart';
-import 'package:prog4_avaliacao2/models/letter_model.dart';
+
+import '../../../consts/colors.dart';
+import '../../../models/letter_model.dart';
 
 import 'game_keyboard_data.dart';
 
@@ -37,9 +38,11 @@ class GameKeyboard extends StatelessWidget {
                         : null,
                     child: Text(
                       letter.value,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
-                        color: kWhite,
+                        color: letter.wasHit
+                            ? Color.fromARGB(255, 17, 255, 25)
+                            : kWhite,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
