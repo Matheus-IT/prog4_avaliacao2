@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
+import '../../core/db.dart';
 import '../../controllers/game_controller.dart';
 import '../../core/app_routes.dart';
 import '../../models/hint_model.dart';
@@ -21,8 +24,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  final word = WordModel('flutter');
-  final hint = HintModel('framework mobile');
+  late WordModel word;
+  late HintModel hint;
   final player = PlayerModel();
   late GameController gameController;
   final playerHangingAssets = {
@@ -36,6 +39,9 @@ class _GamePageState extends State<GamePage> {
   };
 
   _GamePageState() {
+    final sortedWord = vocabulary[Random().nextInt(vocabulary.length)];
+    word = WordModel(sortedWord['word'] as String);
+    hint = HintModel(sortedWord['hint'] as String);
     gameController = GameController(
       word,
       hint,
