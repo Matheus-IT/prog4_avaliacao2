@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog4_avaliacao2/core/app_routes.dart';
 
 import '../../models/letter_model.dart';
 import '../../models/hint_model.dart';
@@ -43,8 +44,14 @@ class _GamePageState extends State<GamePage> {
         revealAllOccurrencesOf(letter.value);
         letter.markAsHit();
         snackBarFeedback('Acertou!');
+        if (word.allLettersWereRevealed()) {
+          Navigator.of(context).pushNamed(AppRoutes.resultPage);
+        }
       } else {
         player.decreaseLivesIfCan();
+        if (player.lives == 0) {
+          Navigator.of(context).pushNamed(AppRoutes.resultPage);
+        }
         player.updateHangingStage();
         increaseHintBar();
         if (hint.shouldRevealHint(hintBarSize)) {

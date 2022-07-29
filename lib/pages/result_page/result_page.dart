@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prog4_avaliacao2/core/app_routes.dart';
 
 import '../../consts/colors.dart';
 import 'components/result_box.dart';
@@ -71,7 +72,8 @@ class ResultPage extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all<Color>(kResultButton)),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/game-page');
+                        Navigator.of(context)
+                            .pushReplacementNamed(AppRoutes.gamePage);
                       },
                       child: const Text('Jogar Novamente')),
                   const SizedBox(

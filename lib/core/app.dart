@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog4_avaliacao2/pages/result_page/result_page.dart';
 
 import '../consts/colors.dart';
 import '../pages/game_page/game_page.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       routes: {
         AppRoutes.homePage: (_) => const HomePage(),
         AppRoutes.gamePage: (_) => const GamePage(),
+        AppRoutes.resultPage: (_) => const ResultPage(),
       },
     );
   }

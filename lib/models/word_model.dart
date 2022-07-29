@@ -21,4 +21,8 @@ class WordModel {
   }
 
   int get length => _letters.length;
+
+  bool allLettersWereRevealed() {
+    return _letters.every((letterModel) => letterModel.isHidden == false);
+  }
 }

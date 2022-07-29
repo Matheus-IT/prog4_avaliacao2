@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog4_avaliacao2/core/app_routes.dart';
 
 import '../../consts/colors.dart';
 
@@ -57,7 +58,8 @@ class HomePage extends StatelessWidget {
                   width: 130,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/game-page');
+                      Navigator.of(context)
+                          .pushReplacementNamed(AppRoutes.gamePage);
                     },
                     style: ButtonStyle(
                         backgroundColor:
