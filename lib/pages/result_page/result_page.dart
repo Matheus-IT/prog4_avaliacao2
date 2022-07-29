@@ -25,12 +25,8 @@ class ResultPage extends StatelessWidget {
           height: deviceScreenHeight,
           child: Column(
             children: [
-              const SizedBox(
-                height: 25,
-              ),
               SizedBox(
-                height: 100,
-                width: 225,
+                height: deviceScreenHeight * 0.2,
                 child: playerWon
                     ? Image.asset('assets/image/icon/trophy.png')
                     : Image.asset('assets/image/icon/lose.png'),
@@ -49,7 +45,6 @@ class ResultPage extends StatelessWidget {
                 thickness: 2,
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ResultBox(
                     values: playerWon ? 'Jogador' : 'Computador',
@@ -74,9 +69,6 @@ class ResultPage extends StatelessWidget {
                         .pushReplacementNamed(AppRoutes.gamePage);
                   },
                   child: const Text('Jogar Novamente')),
-              const SizedBox(
-                height: 30,
-              )
             ],
           ),
         ),
