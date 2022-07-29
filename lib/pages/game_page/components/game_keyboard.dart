@@ -41,7 +41,7 @@ class GameKeyboard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 18,
                         color: letter.wasHit
-                            ? Color.fromARGB(255, 17, 255, 25)
+                            ? const Color.fromARGB(255, 17, 255, 25)
                             : kWhite,
                         fontWeight: FontWeight.bold,
                       ),

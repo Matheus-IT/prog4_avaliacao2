@@ -42,6 +42,7 @@ class _GamePageState extends State<GamePage> {
       if (word.contains(letter.value)) {
         revealAllOccurrencesOf(letter.value);
         letter.markAsHit();
+        snackBarFeedback('Acertou!');
       } else {
         player.decreaseLivesIfCan();
         player.updateHangingStage();
@@ -49,6 +50,7 @@ class _GamePageState extends State<GamePage> {
         if (hint.shouldRevealHint(hintBarSize)) {
           hint.revealHint();
         }
+        snackBarFeedback('Errou!');
       }
     });
   }
@@ -59,6 +61,16 @@ class _GamePageState extends State<GamePage> {
         letterModel.revealLetter();
       }
     }
+  }
+
+  void snackBarFeedback(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: kWordsColor,
+        duration: const Duration(seconds: 1),
+      ),
+    );
   }
 
   void increaseHintBar() {
