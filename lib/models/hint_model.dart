@@ -1,10 +1,11 @@
 class HintModel {
   final String value;
-  bool isHintVisible;
+  bool isHintVisible = false;
+  double hintBarSize = 0.0;
 
-  HintModel(this.value, [this.isHintVisible = false]);
+  HintModel(this.value);
 
-  bool shouldRevealHint(double hintBarSize) {
+  bool shouldRevealHint() {
     return hintBarSize >= 1;
   }
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './components/game_keyboard_data.dart';
+import '../../controllers/game_controller.dart';
 import '../../core/app_routes.dart';
-import '../../models/letter_model.dart';
 import '../../models/hint_model.dart';
 import '../../models/player_model.dart';
 import '../../models/word_model.dart';
@@ -22,12 +21,10 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  double hintBarSize = 0.0;
   final word = WordModel('flutter');
   final hint = HintModel('framework mobile');
   final player = PlayerModel();
-  final gameKeyboardData = GameKeyboardData();
-
+  late GameController gameController;
   final playerHangingAssets = {
     PlayerHangingStage.notHanging: 'assets/image/player_stages/0.png',
     PlayerHangingStage.head: 'assets/image/player_stages/1.png',
@@ -38,38 +35,26 @@ class _GamePageState extends State<GamePage> {
     PlayerHangingStage.rightArm: 'assets/image/player_stages/6.png',
   };
 
-  void handleLetterPressed(LetterModel letter) {
-    /// This is the controller to handle when a letter is pressed
-    letter.chooseThisLetter();
-    setState(() {
-      if (word.contains(letter.value)) {
-        revealAllOccurrencesOf(letter.value);
-        letter.markAsHit();
-        snackBarFeedback('Acertou!');
-        if (word.allLettersWereRevealed()) {
-          Navigator.of(context).pushNamed(AppRoutes.resultPage);
-        }
-      } else {
-        player.decreaseLivesIfCan();
-        if (player.lives == 0) {
-          Navigator.of(context).pushNamed(AppRoutes.resultPage);
-        }
-        player.updateHangingStage();
-        increaseHintBar();
-        if (hint.shouldRevealHint(hintBarSize)) {
-          hint.revealHint();
-        }
-        snackBarFeedback('Errou!');
-      }
-    });
+  _GamePageState() {
+    gameController = GameController(
+      word,
+      hint,
+      player,
+      snackBarFeedback,
+      revealAllOccurrencesOf,
+      increaseHintBar,
+      goToResultPage,
+    );
   }
 
   void revealAllOccurrencesOf(String letterChar) {
-    for (final letterModel in word.letters) {
-      if (letterModel.value == letterChar) {
-        letterModel.revealLetter();
+    setState(() {
+      for (final letterModel in word.letters) {
+        if (letterModel.value == letterChar) {
+          letterModel.revealLetter();
+        }
       }
-    }
+    });
   }
 
   void snackBarFeedback(String message) {
@@ -83,7 +68,13 @@ class _GamePageState extends State<GamePage> {
   }
 
   void increaseHintBar() {
-    hintBarSize += 1 / player.lives;
+    setState(() {
+      hint.hintBarSize += 1 / player.lives;
+    });
+  }
+
+  void goToResultPage() {
+    Navigator.of(context).pushNamed(AppRoutes.resultPage);
   }
 
   @override
@@ -113,7 +104,7 @@ class _GamePageState extends State<GamePage> {
               margin: const EdgeInsets.symmetric(vertical: 20),
               child: hint.isHintVisible
                   ? Hint(hintValue: hint.value)
-                  : HintBar(hintBar: hintBarSize),
+                  : HintBar(hintBar: hint.hintBarSize),
             ),
             Gallow(
               imageSource: playerHangingAssets[player.currentHangingStage]!,
@@ -121,8 +112,8 @@ class _GamePageState extends State<GamePage> {
             WordToGuess(word: word),
             const Spacer(),
             GameKeyboard(
-              handleLetterPressed,
-              gameKeyboardData: gameKeyboardData.keyboardData,
+              gameController.handleLetterPressed,
+              gameKeyboardData: gameController.keyboardData,
             ),
           ],
         ),
