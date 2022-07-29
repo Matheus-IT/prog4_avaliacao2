@@ -43,10 +43,14 @@ class GameController {
   final WordModel word;
   final HintModel hint;
   final PlayerModel player;
-  final Function(String) snackBarFeedback;
-  final Function(String) revealAllOccurrencesOf;
-  final Function() increaseHintBar;
-  final Function() goToResultPage;
+  final void Function(String) snackBarFeedback;
+  final void Function(String) revealAllOccurrencesOf;
+  final void Function() increaseHintBar;
+  final void Function({
+    required bool playerWon,
+    required String guessedWord,
+    required String hint,
+  }) goToResultPage;
 
   GameController(
     this.word,
@@ -55,7 +59,7 @@ class GameController {
     this.snackBarFeedback,
     this.revealAllOccurrencesOf,
     this.increaseHintBar,
-    this.goToResultPage(),
+    this.goToResultPage,
   );
 
   void handleLetterPressed(LetterModel letter) {
@@ -67,12 +71,20 @@ class GameController {
       letter.markAsHit();
       snackBarFeedback('Acertou!');
       if (word.allLettersWereRevealed()) {
-        goToResultPage();
+        goToResultPage(
+          playerWon: true,
+          guessedWord: word.value,
+          hint: hint.value,
+        );
       }
     } else {
       player.decreaseLivesIfCan();
       if (player.lives == 0) {
-        goToResultPage();
+        goToResultPage(
+          playerWon: false,
+          guessedWord: word.value,
+          hint: hint.value,
+        );
       }
       player.updateHangingStage();
       increaseHintBar();

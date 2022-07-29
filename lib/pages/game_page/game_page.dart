@@ -73,8 +73,19 @@ class _GamePageState extends State<GamePage> {
     });
   }
 
-  void goToResultPage() {
-    Navigator.of(context).pushNamed(AppRoutes.resultPage);
+  void goToResultPage({
+    required bool playerWon,
+    required String guessedWord,
+    required String hint,
+  }) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.resultPage,
+      arguments: {
+        'playerWon': playerWon,
+        'guessedWord': guessedWord,
+        'hint': hint,
+      },
+    );
   }
 
   @override

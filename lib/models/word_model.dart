@@ -9,6 +9,8 @@ class WordModel {
 
   List<LetterModel> get letters => [..._letters];
 
+  String get value => _letters.map((letter) => letter.value).join();
+
   List<LetterModel> _createLetters(String word) {
     return word
         .split('')

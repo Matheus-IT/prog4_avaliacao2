@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prog4_avaliacao2/core/app_routes.dart';
+import '../../core/app_routes.dart';
 
 import '../../consts/colors.dart';
 import 'components/result_box.dart';
@@ -10,12 +9,13 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var resultBoxSize = MediaQuery.of(context).size.height;
-    int totalWords = 3;
-    int correctWords = 2;
-    int wrongWords = 1;
-    String numWords = totalWords.toString();
-    String playerGoals = correctWords.toString();
-    String playerFails = wrongWords.toString();
+
+    final gameStatus =
+        ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
+    final playerWon = gameStatus['playerWon'] as bool;
+    final guessedWord = gameStatus['guessedWord'] as String;
+    final wordHint = gameStatus['hint'] as String;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 35),
@@ -32,15 +32,19 @@ class ResultPage extends StatelessWidget {
                     height: 25,
                   ),
                   SizedBox(
-                      height: 100,
-                      width: 225,
-                      child: SvgPicture.asset('assets/image/icon/trophy.svg')),
-                  const Text(
-                    'Vitoria!',
-                    style: TextStyle(
-                        color: kDarkText,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
+                    height: 100,
+                    width: 225,
+                    child: playerWon
+                        ? Image.asset('assets/image/icon/trophy.png')
+                        : Image.asset('assets/image/icon/lose.png'),
+                  ),
+                  Text(
+                    playerWon ? 'Vitoria!' : 'Derrota!',
+                    style: const TextStyle(
+                      color: kDarkText,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Divider(
                     indent: 15,
@@ -52,17 +56,20 @@ class ResultPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        ResultBox(values: numWords, title: 'Palavras'),
+                        ResultBox(
+                          values: playerWon ? 'Jogador' : 'Computador',
+                          title: 'Vencedor',
+                        ),
                         const VerticalDivider(
                           thickness: 2,
                           width: 15,
                         ),
-                        ResultBox(values: playerGoals, title: 'Acertos'),
+                        ResultBox(values: guessedWord, title: 'Palavra'),
                         const VerticalDivider(
                           thickness: 2,
                           width: 15,
                         ),
-                        ResultBox(values: playerFails, title: 'Erros'),
+                        ResultBox(values: wordHint, title: 'Dica'),
                       ],
                     ),
                   ),
