@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../models/hint_model.dart';
 import '../models/player_model.dart';
 import '../models/word_model.dart';
@@ -71,20 +73,24 @@ class GameController {
       letter.markAsHit();
       snackBarFeedback('Acertou!');
       if (word.allLettersWereRevealed()) {
-        goToResultPage(
-          playerWon: true,
-          guessedWord: word.value,
-          hint: hint.value,
-        );
+        Timer(const Duration(milliseconds: 1100), () {
+          goToResultPage(
+            playerWon: true,
+            guessedWord: word.value,
+            hint: hint.value,
+          );
+        });
       }
     } else {
       player.decreaseLivesIfCan();
       if (player.lives == 0) {
-        goToResultPage(
-          playerWon: false,
-          guessedWord: word.value,
-          hint: hint.value,
-        );
+        Timer(const Duration(milliseconds: 1100), () {
+          goToResultPage(
+            playerWon: false,
+            guessedWord: word.value,
+            hint: hint.value,
+          );
+        });
       }
       player.updateHangingStage();
       increaseHintBar();

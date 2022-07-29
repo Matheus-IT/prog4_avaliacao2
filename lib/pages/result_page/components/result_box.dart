@@ -22,6 +22,11 @@ class ResultBox extends StatelessWidget {
           children: [
             Text(title),
             Text(values),
+            const Divider(
+              indent: 50,
+              endIndent: 50,
+              thickness: 2,
+            ),
           ],
         ));
   }

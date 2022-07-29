@@ -60,15 +60,26 @@ class ResultPage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 50,
+              ),
               ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(kResultButton)),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(AppRoutes.gamePage);
-                  },
-                  child: const Text('Jogar Novamente')),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(kResultButton)),
+                onPressed: () => Navigator.of(context)
+                    .pushReplacementNamed(AppRoutes.gamePage),
+                child: const Text('Jogar Novamente'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              IconButton(
+                onPressed: () => Navigator.of(context)
+                    .pushReplacementNamed(AppRoutes.homePage),
+                icon: const Icon(Icons.home),
+                color: kKeyboardFrameColor,
+              )
             ],
           ),
         ),

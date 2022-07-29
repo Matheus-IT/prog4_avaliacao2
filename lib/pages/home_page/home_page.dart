@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prog4_avaliacao2/core/app_routes.dart';
+import 'package:rive/rive.dart';
 
 import '../../consts/colors.dart';
 
@@ -29,10 +30,15 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: const Alignment(-.5, 0),
+              alignment: const Alignment(-.9, 0),
               child: const SizedBox(
-                  height: 180,
-                  child: Image(image: AssetImage('assets/image/player.png'))),
+                height: 200,
+                width: 150,
+                child: RiveAnimation.asset(
+                  'assets/animations/idle_animation.riv',
+                  fit: BoxFit.cover,
+                ),
+              ),
             )
           ]),
           Stack(alignment: AlignmentDirectional.center, children: <Widget>[

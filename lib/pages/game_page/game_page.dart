@@ -60,9 +60,13 @@ class _GamePageState extends State<GamePage> {
   void snackBarFeedback(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
         backgroundColor: kWordsColor,
         duration: const Duration(seconds: 1),
+        padding: const EdgeInsets.all(3),
       ),
     );
   }
